@@ -208,6 +208,12 @@ jobs:
             cat backend/.env 
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
+      - restore_cache:
+          keys: [backend-build]
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend
 
   run-migrations:
     docker:
