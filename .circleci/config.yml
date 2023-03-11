@@ -240,7 +240,7 @@ jobs:
               echo"success"
             else echo "fail"
             fi
-            cd ./backend
+            cd backend
             if grep "has been executed successfully" migrations_dump.txt
             then
               curl https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
