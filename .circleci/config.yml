@@ -196,16 +196,16 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=False
             export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30
-            echo ENVIROMENT=production > "backend/.env"      
-            echo TYPEORM_CONNECTION=postgres >> "backend/.env"
-            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env"
-            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> "backend/.env"          
-            echo TYPEORM_PORT=$TYPEORM_PORT >> "backend/.env"      
-            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"            
-            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"      
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"     
-            echo "CONTENT OF backend/.env"      
-            cat backend/.env 
+            echo ENVIROMENT=production > "backend/.env1.sample"      
+            echo TYPEORM_CONNECTION=postgres >> "backend/.env1.sample"
+            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env1.sample"
+            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> "backend/.env1.sample"          
+            echo TYPEORM_PORT=$TYPEORM_PORT >> "backend/.env1.sample"      
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env1.sample"            
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env1.sample"      
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env1.sample"     
+            echo "CONTENT OF backend/.env1.sample"      
+            cat backend/.env1.sample 
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
 
@@ -219,7 +219,6 @@ jobs:
           command: |
             cd backend
             npm install    
-            cat backend/.env
             npm run migrations > migrations_ouput.txt
             cat migrations_ouput.txt
       - run:
