@@ -224,8 +224,9 @@ jobs:
             cd backend
             npm install
             if [ $? -eq 0 ]; then echo "install success"; fi
-            npm run migrations > migrations_ouput.txt
-            cat migrations_ouput.txt
+            npm run build
+            npm run migrations > migrations.log
+            cat migration.log
       - run:
           name: Send migration results to kvdb
           command: |
