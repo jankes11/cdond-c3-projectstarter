@@ -204,7 +204,7 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"            
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"      
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env" 
-            echo TYPEORM_HOST=$TYPEORM_HOST >> "bckend/.env"
+            echo TYPEORM_HOST=$TYPEORM_HOST >> "backend/.env"
             echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> "backend/.env"    
             echo "CONTENT OF backend/.env"      
             cat backend/.env 
