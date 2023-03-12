@@ -230,9 +230,9 @@ jobs:
             cd backend
             npm install
             if [ $? -eq 0 ]; then echo "install success"; fi
-            npm run build
-            npm run migrations > migrations.log
-            cat migrations.log
+            echo "MIGRATIONS STARTED" > migrations_dump.txt
+            npm run migrations >> migrations_dump.txt
+            cat migrations_dump.txt
       - run:
           name: Send migration results to kvdb
           command: |
@@ -242,11 +242,11 @@ jobs:
             else echo "fail"
             fi
             cd backend
-            if grep "has been executed successfully" migrations_dump.txt
-            then
-              curl https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
-            else curl https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '2'
-            fi
+            #if grep "has been executed successfully" migrations_dump.txt
+            #then
+            #  curl https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+            #else curl https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '2'
+            #fi
       - destroy-environment
       - revert-migration 
 
