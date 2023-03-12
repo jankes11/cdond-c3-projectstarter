@@ -203,7 +203,9 @@ jobs:
             echo TYPEORM_PORT=$TYPEORM_PORT >> "backend/.env"      
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"            
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"      
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"     
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env" 
+            echo TYPEORM_HOST=$TYPEORM_HOST >> "bckend/.env"
+            echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> "backend/.env"    
             echo "CONTENT OF backend/.env"      
             cat backend/.env 
             cd .circleci/ansible
@@ -228,9 +230,9 @@ jobs:
       - run:
           name: awscli install
           command: |
-            apt-get -y -qq update
-            apt-get -y -qq install python3
-            apt-get -qq install awscli
+            sudo apt-get -y -qq update
+            sudo apt-get -y -qq install python3
+            sudo apt-get -qq install awscli
       - run:
           name: Run migrations
           command: |
