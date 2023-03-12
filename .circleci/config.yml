@@ -14,7 +14,7 @@ commands:
           name: Destroy environment
           when: on_fail
           command: |
-            aws --region us-west-2 s3 rm s3://udapeople-<< parameters.Workflow_ID >> --recursive
+            aws --region us-west-2 s3 rm s3://udapeople<< parameters.Workflow_ID >> --recursive
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-backend-<< parameters.Workflow_ID >>
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
 
@@ -319,10 +319,9 @@ jobs:
             cd backend
             npm i
             npm run build
+            cp pacgage* ./dist
             cd ..
-            tar -C backend -czvf artifact.tar.gz 
-            mv artifact.tar.gz .circleci/ansible/roles/deploy/files
-            ls -la .circleci/ansible/roles/deploy/files/
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents of the inventory.txt file is ---------"
             cat inventory.txt
