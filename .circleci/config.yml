@@ -246,7 +246,7 @@ jobs:
           command: |
             if grep -q "successfully"  ~/project/backend/migrations_dump.txt
             then
-              echo"success"
+              echo "success"
             else echo "fail"
             fi
             cd backend
