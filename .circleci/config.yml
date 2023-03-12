@@ -238,6 +238,7 @@ jobs:
             cd backend
             npm install
             if [ $? -eq 0 ]; then echo "install success"; fi
+            npm run migration:revert
             echo "MIGRATIONS STARTED" > migrations_dump.txt
             npm run migrations >> migrations_dump.txt
             cat migrations_dump.txt
