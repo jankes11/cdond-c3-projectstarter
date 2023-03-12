@@ -29,24 +29,24 @@
   become: true
   copy:
     src: ~/project/artifact.tar.gz
-    dest: ~/udadir
+    dest: /home/ubuntu/udadir
 
 - name: "Extract artifacts"
   become: true 
   shell: |
-    cd ~/udadir
+    cd /home/ubuntu/udadir
     tar -vxf artifact.tar.gz
     rm -f artifact.tar.gz
 
 - name: "Install NPM"
   become: true 
   shell: |
-    cd ~/udadir
+    cd /home/ubuntu/udadir
     npm install
 
 - name: "Start application"
   become: true 
   shell:
-    cd ~/udadir
+    cd /home/ubuntu/udadir
     pm2 start npm -- run start
     sleep 60
