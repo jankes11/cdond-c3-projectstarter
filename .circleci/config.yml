@@ -26,7 +26,6 @@ commands:
           command: |
             echo checking status
             SUCCESS=$(curl --insecure https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_<< parameters.Workflow_ID >>)
-            echo $SUCCESS
             if (( SUCCESS == 1));
             then
               cd ~/project/backend
@@ -271,7 +270,7 @@ jobs:
           command: |
             yum install -y tar gzip curl
             curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-            yum install -y node.js
+            yum install -y nodejs
       - run:
           name: Get backend url
           command: |
