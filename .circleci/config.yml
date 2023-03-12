@@ -342,7 +342,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export API_URL="http://${BACKEND_IP}:3030"
+            import API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
       - run:
           name: Backend smoke test.
@@ -372,4 +372,6 @@ jobs:
 workflows:
   default:
     jobs:
-      - smoke-test
+
+      - smoke-test:
+         
