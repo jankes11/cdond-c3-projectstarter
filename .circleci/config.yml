@@ -332,6 +332,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
+          paths:
+            - project/frontend/.env
       - run:
           name: Install dependencies
           command: |
