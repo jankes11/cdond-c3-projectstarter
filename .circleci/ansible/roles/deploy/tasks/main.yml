@@ -1,5 +1,3 @@
-
-    
 - name: start app
   become: yes
   shell: |
