@@ -1,10 +1,4 @@
-- name: start app
-  become: yes
-  shell: |
-    npm install
-    pm2 stop all
-    pm2 start npm --name "udapeople-backend" -- run start
-  environment:
+ environment:
     ENVIRONMENT: production
     NODE_ENV: production
     TYPEORM_CONNECTION: postgres
@@ -17,6 +11,12 @@
     TYPEORM_PASSWORD: udapeople123
     TYPEORM_DATABASE: postgres
     
+- name: start app
+  become: yes
+  shell: |
+    npm install
+    pm2 stop all
+    pm2 start npm --name "udapeople-backend" -- run start
 - name: "Set pm2 start as service"
   become: yes
   shell: |
