@@ -22,7 +22,7 @@
 - name: "Create directory"
   become: true 
   file:
-    path: /usr/local/udadir
+    path: /home/ubuntu/udadir
     state: directory
 
 - name: "Copy artifacts"
