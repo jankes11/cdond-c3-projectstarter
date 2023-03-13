@@ -46,7 +46,7 @@
 
 - name: "Start application"
   become: true 
-  shell:
+  shell: |
     cd /home/ubuntu/udadir
     pm2 start npm -- run start
     cd dist
