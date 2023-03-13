@@ -43,7 +43,6 @@
   shell: |
     cd /home/ubuntu/udadir
     npm install
-    pm2 stop default
 
 - name: "Start application"
   become: true 
