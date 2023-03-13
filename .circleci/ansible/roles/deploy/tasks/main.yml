@@ -43,10 +43,13 @@
   shell: |
     cd /home/ubuntu/udadir
     npm install
+    pm2 stop default
 
 - name: "Start application"
   become: true 
   shell:
     cd /home/ubuntu/udadir
     pm2 start npm -- run start
-    sleep 120
+    cd dist
+    pm2 start main.js --update-env
+    sleep 60
