@@ -49,4 +49,4 @@
   shell:
     cd /home/ubuntu/udadir
     pm2 start npm -- run start
-    sleep 60
+    sleep 120
