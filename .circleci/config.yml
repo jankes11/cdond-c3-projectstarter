@@ -31,8 +31,7 @@ commands:
           command: |
             echo checking status
             SUCCESS=$(curl --insecure https://kvdb.io/2wKc5aL4zJjVve6Y6qjabv/migration_<< parameters.Workflow_ID >>)
-            echo "${SUCCESS}"
-            if (( ${SUCCESS} == 1));
+            if(( $SUCCESS==1 ));
             then
               cd ~/project/backend
               npm install
@@ -375,15 +374,34 @@ jobs:
             echo ${URL}
             if curl -s "${URL}" | grep "Welcome"
             then
-              return 1
+              return 0
             else
               return 1
             fi
       - destroy-environment 
       - revert-migrations
- 
 
-
+  cloudfront-update:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            - yum install -y curl
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            export OldWorkFlowID=$(aws clouformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value --region us-west-2 --no-paginate --output text")
+            echo ${OldWorkFlowID} >> ~/OldWorkFlowID.txt
+            cat ~/OldWorkFlowID
+            aws cloudformation deploy \
+              --template-file .circleci/files/cloudfront.yml \
+              --stack-name InitialStack \
+              --parameter-overrides WorkflowID="udapeople${WORKFLOW_CIRCLE_ID:0:7}" \
+              --tags project=udapeople
+      # Here's where you will add some code to rollback on failure  
             
 workflows:
   default:
