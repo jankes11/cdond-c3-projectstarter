@@ -420,6 +420,7 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y curl
+            yum install -y tar gzip
       - attach_workspace:
           at: ~/
       - run:
