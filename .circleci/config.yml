@@ -391,10 +391,11 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y curl
+            yum install -y tar gzip
       - run:
           name: Update cloudfront distribution
           command: |
-            aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text > ~/oldworkflowID.txt
+            aws cloudformation list-exports --query "Exports[?Name==\`PipelineID\`].Value" --region us-west-2 --no-paginate --output text > ~/oldworkflowID.txt
             export WorkflowID=$(cat ~/oldworkflowID.txt)
             echo WorkflowID: "$WorkflowID"
       - persist_to_workspace:
