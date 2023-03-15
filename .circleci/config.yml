@@ -403,7 +403,7 @@ jobs:
               --parameter-overrides WorkflowID="udapeople${WORKFLOW_CIRCLE_ID:0:7}" \
               --tags project=udapeople 
 
-cleanup:
+  cleanup:
     docker:
       - image: amazon/aws-cli
     steps:
