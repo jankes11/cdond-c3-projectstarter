@@ -416,7 +416,7 @@ jobs:
           name: Get old stack workflow id
           command: |
             # your code here
-            export OldWorkFlowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text)
+            export OldWorkFlowID=($(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text))
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
             echo "OldWorkFlowID=${OldWorkflowID}"
             echo "exportStacks=${STACKS}"
