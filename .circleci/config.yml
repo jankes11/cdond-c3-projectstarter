@@ -392,9 +392,9 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-            export OldWorkFlowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value --region us-west-2 --no-paginate --output text")
-            echo ${OldWorkFlowID} >> ~/OldWorkFlowID.txt
-            cat ~/OldWorkFlowID
+            #export OldWorkFlowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value --region us-west-2 --no-paginate --output text")
+            #echo ${OldWorkFlowID} >> ~/OldWorkFlowID.txt
+            #cat ~/OldWorkFlowID
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --stack-name InitialStack \
