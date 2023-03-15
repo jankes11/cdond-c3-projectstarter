@@ -428,7 +428,7 @@ jobs:
           command: |
             export OldWorkflowID=$(cat ~/oldworkflowID.txt)
             currentWorkflowID=${CIRCLE_WORKFLOW_ID:0:7}
-            if [[ "$currentWorkflowID != $OldWorkflowID"]]
+            if [[ "$currentWorkflowID!=$OldWorkflowID"]]
             then
               echo "Cleaning up started--------------------------------------------------------------------"
               aws --region us-west-2 s3 rm "s3://udapeople$(OldWorkflowID)" --recursive
