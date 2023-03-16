@@ -395,21 +395,20 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-            aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text > ~/oldworkflowID.txt
-            export WorkflowID=$(cat ~/oldworkflowID.txt)
-            echo WorkflowID: "$WorkflowID"
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - oldworkflowID.txt
-      - run:
-          name: Update cloudfront distribution 
-          command: |
+            export OldWorkflowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text)
+            echo ${WorkflowID} >> ~/oldworkflowID.txt
+            cat ~/oldworkflowID.txt
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --stack-name InitialStack \
               --parameter-overrides WorkflowID="udapeople${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople 
+            echo OldWorkflowID: "${OldWorkflowID}"
+            echo New WorkflowID: ${CIRCLE_WORKFLOW_ID:0:7}
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - oldworkflowID.txt
 
   cleanup:
     docker:
@@ -430,10 +429,12 @@ jobs:
             currentWorkflowID=${CIRCLE_WORKFLOW_ID:0:7}
             echo "oldWorkflow: $OldWorkflowID"
             echo "currentWorflow: $currentWorkflowID"
+            export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+            echo Stack Names: "${STACKS[@]}"
             if [[ "${currentWorkflowID}" != "${OldWorkflowID:0:7}" ]]
             then
               echo "Cleaning up started--------------------------------------------------------------------"
-              aws --region us-west-2 s3 rm "s3://udapeople${OldWorkflowID:0:7}" --recursive
+              aws --region us-west-2 s3 rm "s3://udapeople${CIRCLE_WORKFLOW_ID}" --recursive
               aws --region us-west-2 cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID:0:7}"
               aws --region us-west-2 cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID:0:7}"
             else
