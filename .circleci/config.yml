@@ -443,7 +443,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - cleanup:
+      - cleanup
 
 
          
