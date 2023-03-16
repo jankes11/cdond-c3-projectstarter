@@ -430,7 +430,7 @@ jobs:
             currentWorkflowID=${CIRCLE_WORKFLOW_ID:0:7}
             echo "oldWorkflow: $OldWorkflowID"
             echo "currentWorflow: $currentWorkflowID"
-            if [[ "${currentWorkflowID}" != "${OldWorkflowID:0:7}"]]
+            if [[ "${currentWorkflowID}" != "${OldWorkflowID:0:7}" ]]
             then
               echo "Cleaning up started--------------------------------------------------------------------"
               aws --region us-west-2 s3 rm "s3://udapeople$(OldWorkflowID:0:7)" --recursive
@@ -443,35 +443,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
-      - cloudfront-update:
-          requires: [smoke-test]
       - cleanup:
-          requires: [cloudfront-update]
 
 
          
