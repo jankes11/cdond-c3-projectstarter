@@ -396,7 +396,7 @@ jobs:
           name: Update cloudfront distribution
           command: |
             export OldWorkflowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --region us-west-2 --no-paginate --output text)
-            echo ${WorkflowID} >> ~/oldworkflowID.txt
+            echo ${OldWorkflowID} >> ~/oldworkflowID.txt
             cat ~/oldworkflowID.txt
       - persist_to_workspace:
           root: ~/
