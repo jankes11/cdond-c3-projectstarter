@@ -441,7 +441,7 @@ jobs:
               aws --region us-west-2 cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID:0:7}"
               aws --region us-west-2 cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID:0:7}"
             else
-              echo "$OldWorkflowID==$currentWorkflowID -> all good now"
+              echo "$OldWorkflowID==$currentWorkflowID -> all good now "
             fi
 
 
